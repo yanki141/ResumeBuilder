@@ -1,11 +1,10 @@
-
-
 from django.shortcuts import render
 from .models import Profile
-from django.http import HttpResponse    # Send the details in form of HTTP not web
+from django.http import HttpResponse  # Send the details in form of HTTP not web
 from django.template import loader
 import pdfkit
-import io                           # form to db and vice-versa. Needed for better performance
+import io  # form to db and vice-versa. Needed for better performance
+
 
 # Create your views here.
 # Till now we have just created template but not storing any data from the template form.
@@ -34,17 +33,24 @@ def accept(request):
 
 
 def resume(request, id):
-    user_profile = Profile.objects.get(pk=id)       # Get the object means one record with id
+    user_profile = Profile.objects.get(pk=id)  # Get the object means one record with id
     # return render(request, "pdf/resume.html", {
     #     'user_profile': user_profile                # pass this to resume.html template
     # })
-    template = loader.get_template("pdf/resume.html")   # load the template in the template
+    template = loader.get_template("pdf/resume.html")  # load the template in the template
     html = template.render({'user_profile': user_profile})  # convert this to pdf, w.r.t id
-    option = {                                          # option for creating pdf
+    option = {  # option for creating pdf
         'page-size': 'Letter',
         'encoding': 'UTF-8'
     }
 
     pdf = pdfkit.from_string(html, False, option)
     response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment'  # This line missed in commit, but due to this line download
+    # attachment is coming before seeing the pdf. Good idea to not expose my /id urls
     return response
+
+
+def list(request):
+    profile = Profile.objects.all()
+    return render(request, "pdf/list.html", {'profile': profile})
