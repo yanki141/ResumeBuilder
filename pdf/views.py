@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Profile
-from django.http import HttpResponse  # Send the details in form of HTTP not web
+from django.http import HttpResponse, HttpResponseRedirect  # Send the details in form of HTTP not web
 from django.template import loader
 import pdfkit
 import io  # form to db and vice-versa. Needed for better performance
@@ -54,3 +54,7 @@ def resume(request, id):
 def list(request):
     profile = Profile.objects.all()
     return render(request, "pdf/list.html", {'profile': profile})
+
+
+def option(request):
+    return render(request, "pdf/option.html")

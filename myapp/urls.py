@@ -22,4 +22,5 @@ urlpatterns = [
     path('', views.accept, name="accept"),
     path('<int:id>/', views.resume, name="resume"),
     path('list/', views.list, name="list"),
+    path('option/', views.option, name="option")
 ]

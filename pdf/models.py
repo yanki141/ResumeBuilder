@@ -18,3 +18,6 @@ class Profile(models.Model):
     skill = models.TextField(max_length=100)
     ambition = models.TextField(max_length=100)
     work_ex = models.TextField(max_length=100)
+
+    def __str__(self):
+        return f'Resume of {self.name} having email: {self.email}'

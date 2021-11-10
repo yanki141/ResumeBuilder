@@ -22,7 +22,7 @@
     </div>
     <div class="row m-5">
         <div class="col-md-7">
-            <form method="POST">
+            <form method="POST" action="{% url 'option' %}">  <!-- After the form submission, open the url in action -->
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Name</label>
