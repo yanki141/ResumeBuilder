@@ -12,17 +12,20 @@
     <div class="row m-5">
         <div class="col-md-12">
             <h1>CV Generator</h1>
-            <hr>
+            <hr style="border-top: solid 2px;">
         </div>
     </div>
     <div class="row m-5">
         <div class="col-md-12">
+            <h3> You can download your CV here: <a href="{% url 'option' %}">Click</a><h3>
+            <hr style="border-top: dashed 2px;"><br>
             <h4>Please fill out details</h4>
         </div>
     </div>
     <div class="row m-5">
         <div class="col-md-7">
-            <form method="POST" action="{% url 'option' %}">  <!-- After the form submission, open the url in action -->
+            <form method="POST">  <!-- action="{% url 'option' %}" -->
+                <!-- After the form submission, open the url in action. But it opens url before the POST call -->
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Name</label>
